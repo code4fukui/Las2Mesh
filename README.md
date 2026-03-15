@@ -1,5 +1,7 @@
 # Las2Mesh
 
+> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
+
 A tool to convert point cloud (.las format) files into 3D models. The output formats supported are .ply, .stl, .obj, .off, .gltf, and .glb.
 
 ## Download
@@ -70,3 +72,7 @@ Test conversion (after cloning Las2Mesh):
 cd src
 python las2mesh.py test.las -o test.glb
 ```
+
+## License
+
+Apache License 2.0

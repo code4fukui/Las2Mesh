@@ -1,59 +1,58 @@
 # Las2Mesh
 
-点群(.las形式)ファイルを3Dモデルに変換するツールです。出力形式は、.ply, .stl, .obj, .off, .gltf, glb に対応しています。
+A tool to convert point cloud (.las format) files into 3D models. The output formats supported are .ply, .stl, .obj, .off, .gltf, and .glb.
 
-## ダウンロード
+## Download
 
 - [v0.2](https://github.com/ksasao/Las2Mesh/releases/download/v0.2/las2mesh_v0.2.zip) (2022/04/11)
-- [過去のバージョン](https://github.com/ksasao/Las2Mesh/releases)
+- [Previous Versions](https://github.com/ksasao/Las2Mesh/releases)
 
-## 利用方法
+## Usage
 
-las2mesh.exe に 点群ファイル(.las) を Drag&Drop してください。複数まとめて Drag&Drop すると1つの3Dモデルとして出力されます。デフォルトのファイル名は output.ply です。出力形式は -o オプションで指定したファイル名の拡張子で自動判別します。なお、いずれも頂点カラーで出力されます。
+Drag and drop the point cloud (.las) file(s) onto las2mesh.exe. Multiple files can be dropped together to output a single 3D model. The default file name is output.ply. The output format is automatically determined by the file extension specified in the -o option. The output will have vertex colors.
 
-![伊豆急下田駅周辺(-d 11オプションを指定)](material/izukyushimoda_d11.png)
-[G空間情報センター 静岡県　富士山南東部・伊豆東部　点群データLPデータ](https://www.geospatial.jp/ckan/dataset/shizuoka-2019-pointcloud/resource/d5e98a7b-f15c-45b0-bf40-0287f5b1de68) の .las ファイルを用いて作成 (ライセンス: [クリエイティブ・コモンズ 表示](http://opendefinition.org/licenses/cc-by/))
+![Izu-kyū Shimoda Station area (-d 11 option)](material/izukyushimoda_d11.png)
+Created using the .las file from [G-Spatial Information Center, Shizuoka, Mount Fuji Southeast - Izu East, Point Cloud Data LPData](https://www.geospatial.jp/ckan/dataset/shizuoka-2019-pointcloud/resource/d5e98a7b-f15c-45b0-bf40-0287f5b1de68) (License: [Creative Commons Attribution](http://opendefinition.org/licenses/cc-by/))
 
-### オプション
+### Options
 
 ```txt
 Las2Mesh v0.2
 usage: las2mesh.py [-h] [-d DEPTH] [-o OUTPUT] [-n] [files ...]
 
-.lasファイルからメッシュを生成します
+Generate a mesh from .las files
 
 positional arguments:
-  files                 対象の .lasファイル。複数指定できます。
+  files                 .las files to process. Can specify multiple.
 
 optional arguments:
   -h, --help            show this help message and exit
   -d DEPTH, --depth DEPTH
-                        メッシュの細かさを整数で指定します。デフォルト値は 10 です。
+                        Specify mesh detail as an integer. Default is 10.
   -o OUTPUT, --output OUTPUT
-                        出力ファイル名を指定します。デフォルト値は output.ply です。出力形式は、.ply, .stl, .obj, .off, .gltf に対応しています。
-  -n, --nopreview       3Dプレビュー表示を無効にします
+                        Specify output file name. Default is output.ply. Supports .ply, .stl, .obj, .off, .gltf.
+  -n, --nopreview       Disable 3D preview
 ```
 
-## M1 Mac用環境設定
+## M1 Mac Setup
 
-Pythonインストール
+Install Python:
 ```
 brew install python
 ```
 
-python コマンドを有効にする
+Make python command available:
 ```
 sudo ln -s /opt/homebrew/bin/python3 /opt/homebrew/bin/python
 ```
 
-[Open3D](https://github.com/isl-org/Open3D)をビルドする ([see also](http://www.open3d.org/docs/release/compilation.html))
+Build [Open3D](https://github.com/isl-org/Open3D) ([see also](http://www.open3d.org/docs/release/compilation.html)):
 ```
 git clone https://github.com/isl-org/Open3D
 cd Open3D
 mkdir build
 cd build
 cmake ..
-
 make -j$(sysctl -n hw.physicalcpu)
 sudo make install
 make install-pip-package
@@ -61,12 +60,12 @@ make python-package
 make pip-package
 ```
 
-Python用ライブラリをインストール
+Install Python libraries:
 ```
 pip3 install numpy laspy pygltflib
 ```
 
-変換テスト (Las2Meshをclone後)
+Test conversion (after cloning Las2Mesh):
 ```
 cd src
 python las2mesh.py test.las -o test.glb
